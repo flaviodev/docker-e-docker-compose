@@ -1,0 +1,12 @@
+1 - Verifing installation:
+
+$ docker version
+
+2 - Running first container?
+
+$ docker run hello-world
+
+
+
+
+
