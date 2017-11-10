@@ -6,3 +6,44 @@ $ docker run ubuntu echo "ola mundo"
 
 # run a interactive execution 
 $ docker run -it ubuntu
+
+root@d1031c88d1ca:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+root@d1031c88d1ca:/# touch hello-world.txt
+
+root@d1031c88d1ca:/# ls
+bin  boot  dev  etc  hello-world.txt  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+root@d1031c88d1ca:/# echo "wrinting in file" > hello-world.txt 
+
+root@d1031c88d1ca:/# cat hello-world.txt 
+wrinting in file
+
+root@d1031c88d1ca:/# exit
+
+
+# starting container
+
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                     PORTS               NAMES
+d1031c88d1ca        ubuntu              "/bin/bash"          2 hours ago         Exited (0) 2 minutes ago                       quirky_snyder
+c1c74b85c8e4        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        amazing_yonath
+88fbe149eef8        ubuntu              "echo 'ola mundo'"   19 hours ago        Exited (0) 19 hours ago                        zealous_mccarthy
+5e9575d44f98        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        vigilant_albattani
+daa3c72d5cc2        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        objective_cray
+084e4235b2cd        hello-world         "/hello"             24 hours ago        Exited (0) 24 hours ago                        competent_jepsen
+
+
+$ docker start d10
+
+$ docker ps
+d1031c88d1ca        ubuntu              "/bin/bash"         2 hours ago         Up 5 seconds                            quirky_snyder
+
+$ docker stop d10
+
+# interactive start
+
+$ docker start -a -i d10
+
+root@d1031c88d1ca:/#
