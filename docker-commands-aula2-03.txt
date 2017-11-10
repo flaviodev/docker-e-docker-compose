@@ -1,0 +1,56 @@
+# removing a container
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                     PORTS               NAMES
+d1031c88d1ca        ubuntu              "/bin/bash"          2 hours ago         Exited (0) 8 minutes ago                       quirky_snyder
+c1c74b85c8e4        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        amazing_yonath
+88fbe149eef8        ubuntu              "echo 'ola mundo'"   19 hours ago        Exited (0) 19 hours ago                        zealous_mccarthy
+5e9575d44f98        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        vigilant_albattani
+daa3c72d5cc2        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        objective_cray
+084e4235b2cd        hello-world         "/hello"             25 hours ago        Exited (0) 25 hours ago                        competent_jepsen
+
+$ docker rm 084
+
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND              CREATED             STATUS                     PORTS               NAMES
+d1031c88d1ca        ubuntu              "/bin/bash"          2 hours ago         Exited (0) 8 minutes ago                       quirky_snyder
+c1c74b85c8e4        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        amazing_yonath
+88fbe149eef8        ubuntu              "echo 'ola mundo'"   19 hours ago        Exited (0) 19 hours ago                        zealous_mccarthy
+5e9575d44f98        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        vigilant_albattani
+daa3c72d5cc2        ubuntu              "/bin/bash"          19 hours ago        Exited (0) 19 hours ago                        objective_cray
+
+
+# removing all containers
+$ docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+d1031c88d1cab631dcf82730a835157fe6555f2e6c252e51eda3ab4a11cee957
+c1c74b85c8e4cc0e54d0022f463d431722b432f4f2593204859ff72f58a0731d
+88fbe149eef8c32f7db42006ad1e8151c2c76730ad3dbf568743b3bc9902d253
+5e9575d44f98a0685b5e3d42abfb1f65269069639208f92664e7c91963174d53
+daa3c72d5cc2ae064e31256e768fb23af50a8cb3e3cc7d58d3b7fa35a18e667a
+
+Total reclaimed space: 222 B
+
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+
+# show images
+$ docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+ubuntu                             latest              dd6f76d9cc90        6 days ago          122 MB
+hello-world                        latest              725dcfab7d63        6 days ago          1.84 kB
+fabric8/java-centos-openjdk8-jre   latest              b7a8a6f8174c        8 weeks ago         444 MB
+
+docker rmi ubuntu
+Untagged: ubuntu:latest
+Untagged: ubuntu@sha256:6eb24585b1b2e7402600450d289ea0fd195cfb76893032bbbb3943e041ec8a65
+Deleted: sha256:dd6f76d9cc90f3ec2bded9e1c970bb6a8c5259e05401b52df42c997dec1e79be
+Deleted: sha256:6428d162737d88c3d35c01efc0eacf39eb1b040f7c5aea7ed30e72d062a36d89
+Deleted: sha256:97e940224b19489fe0345f4ec05397889f4ec6250ce0cbd2363b9ed9d54bac2e
+Deleted: sha256:9b85b1f6f82cccad421643297784c6326e660d9da5e97686cdb5f07a3e09153f
+Deleted: sha256:a25db7dbfd3205a483f67bfaa81de9924b6c687c4f1b3ccf6bd42da9bc7387ad
+Deleted: sha256:0f5ff0cf6a1c53f94b15f03536c490040f233bc455f1232f54cc8eb344a3a368
+
+

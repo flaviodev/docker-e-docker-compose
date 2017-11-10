@@ -1,0 +1,134 @@
+# createing a static-site container
+
+$ docker run dockersamples/static-site
+Unable to find image 'dockersamples/static-site:latest' locally
+latest: Pulling from dockersamples/static-site
+fdd5d7827f33: Pull complete 
+a3ed95caeb02: Pull complete 
+716f7a5f3082: Pull complete 
+7b10f03a0309: Pull complete 
+aff3ab7e9c39: Pull complete 
+Digest: sha256:daa686c61d7d239b7977e72157997489db49f316b9b9af3909d9f10fd28b2dec
+Status: Downloaded newer image for dockersamples/static-site:latest
+
+
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS               NAMES
+905a78189aa0        dockersamples/static-site   "/bin/sh -c 'cd /u..."   47 seconds ago      Up 43 seconds       80/tcp, 443/tcp     dreamy_kilby
+
+# runnig on deamon 
+
+$ docker run -d dockersamples/static-site
+138cb3e25795630102bbfed3da1cb25b625f8e2b4c910f3f243f4aec75ee8f6f
+
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS               NAMES
+138cb3e25795        dockersamples/static-site   "/bin/sh -c 'cd /u..."   47 seconds ago      Up 45 seconds       80/tcp, 443/tcp     distracted_mccarthy
+
+# setting time for stop
+
+$ docker stop --help
+
+Usage:	docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+
+Options:
+      --help       Print usage
+  -t, --time int   Seconds to wait for stop before killing it (default 10)
+
+
+$ docker stop -t 0 138
+
+
+# mapping a host port to a container port
+
+$ docker run -d -P  dockersamples/static-site
+4f4570098683243997cc34ab1bde640395b37154fe125b68ea8b2bd3d54deb67
+
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                           NAMES
+4f4570098683        dockersamples/static-site   "/bin/sh -c 'cd /u..."   6 seconds ago       Up 3 seconds        0.0.0.0:32769->80/tcp, 0.0.0.0:32768->443/tcp   serene_goldstine
+
+
+# show ports of a container
+
+$ docker port 4f4
+443/tcp -> 0.0.0.0:32768
+80/tcp -> 0.0.0.0:32769
+
+
+$ curl http://localhost:32769
+.
+.
+.
+
+<h1 id="toc_0">Hello Docker!</h1>
+
+<p>This is being served from a <b>docker</b><br>
+container running Nginx.</p>
+.
+.
+.
+
+# naming container
+
+$ docker run -d -P --name meu-site dockersamples/static-site
+d6d4a29cd623c32f07c999e5dd7f773feaa37c61cc6be40164174f3512539c33
+
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                           NAMES
+d6d4a29cd623        dockersamples/static-site   "/bin/sh -c 'cd /u..."   4 seconds ago       Up 2 seconds        0.0.0.0:32771->80/tcp, 0.0.0.0:32770->443/tcp   meu-site
+
+e$ docker stop -t 0 meu-site 
+meu-site
+
+# choose a port
+
+$ docker run -d -p 12345:80 --name meu-site dockersamples/static-site
+03feb6909d8b6c1ccdd3a248b6ef875702511924caaab266029ac17b5ca4e52b
+
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                            NAMES
+03feb6909d8b        dockersamples/static-site   "/bin/sh -c 'cd /u..."   4 seconds ago       Up 2 seconds        443/tcp, 0.0.0.0:12345->80/tcp   meu-site
+
+
+# setting env variables
+
+$ docker run -d -p 12345:80 -e AUTHOR="fdsdev" --name meu-site dockersamples/static-site
+79736ceb0708fe3171228f02b1018141c064fea8d172d43e870a278818ac4524
+
+
+$ curl http://localhost:12345
+.
+.
+.
+
+<h1 id="toc_0">Hello fdsdev!</h1>
+
+<p>This is being served from a <b>docker</b><br>
+container running Nginx.</p>
+.
+.
+.
+
+
+# stopping all containers
+
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                           NAMES
+05afa33215ec        dockersamples/static-site   "/bin/sh -c 'cd /u..."   6 seconds ago       Up 4 seconds        0.0.0.0:32773->80/tcp, 0.0.0.0:32772->443/tcp   zealous_euclid
+79736ceb0708        dockersamples/static-site   "/bin/sh -c 'cd /u..."   3 minutes ago       Up 3 minutes        443/tcp, 0.0.0.0:12345->80/tcp                  meu-site
+
+# show just ids
+
+$ docker ps -q
+05afa33215ec
+79736ceb0708
+
+$ docker stop -t 0 $(docker ps -q)
+05afa33215ec
+79736ceb0708
+
+
+
