@@ -1,0 +1,8 @@
+# run a container of the ubuntu
+$ docker run ubuntu
+
+# run a command on ubuntu
+$ docker run ubuntu echo "ola mundo"
+
+# run a interactive execution 
+$ docker run -it ubuntu
