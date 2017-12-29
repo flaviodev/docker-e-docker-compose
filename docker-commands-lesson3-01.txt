@@ -1,0 +1,46 @@
+// creating a volume
+$ docker run -v "/var/www/" ubuntu
+
+// docker ps
+$ docker ps -a
+
+CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS                     PORTS               NAMES
+cef5dde26ac2        ubuntu                   "/bin/bash"              2 minutes ago       Exited (0) 2 minutes ago                       gallant_shockley
+
+
+// inspecting the container
+$ docker inspect cef
+
+// look at mounts and verify the volume 
+
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "873ac8c294955f0548e003636cfd3552dbc493f8334a4c30af2445a908a5ca1e",
+                "Source": "/var/lib/docker/volumes/873ac8c294955f0548e003636cfd3552dbc493f8334a4c30af2445a908a5ca1e/_data",
+                "Destination": "/var/www",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+
+
+// creating a volume linking a host folder
+$ docker run -it -v "/home/flavio:/var/www" ubuntu
+
+root@3763383c49c7:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@3763383c49c7:/# cd /var/www/
+root@3763383c49c7:/var/www# touch new-file.txt
+root@3763383c49c7:/var/www# echo "file created in a volume" > new-file.txt     
+root@3763383c49c7:/var/www# cat new-file.txt 
+file created in a volume
+root@3763383c49c7:/var/www# exit
+exit
+
+ cat /home/flavio/new-file.txt 
+file created in a volume
+
+
