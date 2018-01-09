@@ -1,1 +1,1 @@
-docker build -f Dockerfile -t flaviodev/node .
+docker build -f Dockerfile -t fdsdev/node .

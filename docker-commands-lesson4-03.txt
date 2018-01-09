@@ -1,0 +1,5 @@
+// login docker hub
+$ docker login
+
+// push image
+$ docker push fdsdev/node 
