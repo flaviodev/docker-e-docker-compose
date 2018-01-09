@@ -1,0 +1,6 @@
+// building a custom image (-f file, -t tagname)
+$ docker build -f Dockerfile -t flaviodev/node .
+
+
+// run container from created image
+$ docker run -f -p 8080:3000 flaviodev/node
