@@ -1,0 +1,71 @@
+// working with network
+
+// verifying the default network on docker
+
+// run ubuntu container and verifying the ip
+
+$ docker run -it ubuntu
+
+root@835acbc20796:/# hostname -i
+172.17.0.2
+
+// run the same command in another terminal
+
+root@97b913849e90:/# hostname -i
+172.17.0.3
+
+// installing iputils  on ubuntu for pinging the ip each other container
+
+root@835acbc20796:/# apt-get update && apt-get install -y iputils-ping
+
+root@835acbc20796:/# ping 172.17.0.3
+PING 172.17.0.3 (172.17.0.3) 56(84) bytes of data.
+64 bytes from 172.17.0.3: icmp_seq=1 ttl=64 time=0.205 ms
+64 bytes from 172.17.0.3: icmp_seq=2 ttl=64 time=0.154 ms
+64 bytes from 172.17.0.3: icmp_seq=3 ttl=64 time=0.141 ms
+^C
+--- 172.17.0.3 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2024ms
+rtt min/avg/max/mdev = 0.141/0.166/0.205/0.031 ms
+
+
+// I can create a container with a name, but in the default network just use ips
+
+$ docker run -it --name my-ubuntu ubuntu 
+
+// for accessing the hostname is necessary to create a network instead to use the default network
+
+
+$ docker network create --driver bridge my-network
+56321583c91b566ad3e88c62e5373a1d670607f1e9df4e63dda1a0295cd757cc
+
+// listing the available networks
+
+$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+c0093d6ae61c        bridge              bridge              local
+e2192731e404        host                host                local
+56321583c91b        my-network          bridge              local
+0ce29b6d288d        none                null                local
+
+
+// creating two new containers on my-network
+
+$ docker run -it --name my-ubuntu --network my-network  ubuntu
+$ docker run -it --name my-ubuntu2 --network my-network  ubuntu
+
+
+// pinging by hostname
+
+root@d0bc074faff7:/# ping my-ubuntu2
+PING my-ubuntu2 (172.18.0.3) 56(84) bytes of data.
+64 bytes from my-ubuntu2.my-network (172.18.0.3): icmp_seq=1 ttl=64 time=0.134 ms
+64 bytes from my-ubuntu2.my-network (172.18.0.3): icmp_seq=2 ttl=64 time=0.159 ms
+64 bytes from my-ubuntu2.my-network (172.18.0.3): icmp_seq=3 ttl=64 time=0.106 ms
+64 bytes from my-ubuntu2.my-network (172.18.0.3): icmp_seq=4 ttl=64 time=0.165 ms
+^C
+--- my-ubuntu2 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3069ms
+rtt min/avg/max/mdev = 0.106/0.141/0.165/0.023 ms
+
+
