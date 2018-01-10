@@ -1,0 +1,15 @@
+// Docker compose
+
+// running multiple containers, organizing containers, flags,load order and load balance
+
+// nginx -> app -> mongo
+
+// creating composer file on directory alura-docker-cap06
+
+// for usinig docker composer on linux is necessary run the commands bellow:
+
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+$ sudo chmod +x /usr/local/bin/docker-compose
+
+
