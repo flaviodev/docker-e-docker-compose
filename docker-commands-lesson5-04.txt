@@ -1,0 +1,37 @@
+// accessing data from mongodb
+
+// first we need to pull the image:
+
+$ docker pull douglasq/alura-books:cap05
+
+// and execute it
+
+$ docker run -d -p 8080:3000 douglasq/alura-books:cap05
+
+// but the application doesnt load the data, because the mongo service is not available
+// so we need stop the container and run mongo before
+
+$ docker ps
+CONTAINER ID        IMAGE                        COMMAND             CREATED             STATUS              PORTS                    NAMES
+08dd4c6678c6        douglasq/alura-books:cap05   "npm start"         2 minutes ago       Up 2 minutes        0.0.0.0:8080->3000/tcp   mystifying_stallman
+
+$ docker rm -f  08d
+08d
+
+// running mongo container
+
+$ docker run -d --name meu-mongo --network my-network  mongo
+56a3e28db989141ae089b8441db29a1c551fc574b6792e48e851787a00c18545
+
+// and now run the application on the same network
+
+
+$ docker run -d -p 8080:3000 --network my-network douglasq/alura-books:cap05
+2d4a9e0f72f0647801b4441d40e8c05778be253d046f0d55ac9f8b1706e2ef18
+
+// accessing http://localhost:8080 is possible to see the application running, for loading the books execute http://localhost:8080/seed 
+// and after return to the before page
+
+
+
+
