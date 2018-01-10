@@ -32,7 +32,7 @@ services:
     image: fdsdev/alura-books
     container_name: alura-books-1
     ports: 
-      - "3000:3000"
+      - "3000"
     networks: 
       - production-network  
     depends_on:
@@ -45,7 +45,7 @@ services:
     image: fdsdev/alura-books
     container_name: alura-books-2
     ports: 
-      - "3000:3000"
+      - "3000"
     networks: 
       - production-network  
     depends_on:
@@ -58,7 +58,7 @@ services:
     image: fdsdev/alura-books
     container_name: alura-books-3
     ports: 
-      - "3000:3000"
+      - "3000"
     networks: 
       - production-network        
     depends_on:

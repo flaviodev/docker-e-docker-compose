@@ -1,0 +1,28 @@
+// building docker compose
+
+$ docker-compose build
+
+// running docker compose
+
+$ docker-compose up
+
+// checking that load balance is working 
+
+nginx      | 172.20.0.1 - - [10/Jan/2018:17:53:07 +0000] "GET / HTTP/1.1" 200 387 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
+alura-books-1 | Exibindo a Home!
+nginx      | 172.20.0.1 - - [10/Jan/2018:17:53:20 +0000] "GET / HTTP/1.1" 200 387 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
+alura-books-2 | Exibindo a Home!
+nginx      | 172.20.0.1 - - [10/Jan/2018:17:53:27 +0000] "GET / HTTP/1.1" 200 387 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
+alura-books-3 | Exibindo a Home!
+nginx      | 172.20.0.1 - - [10/Jan/2018:17:53:31 +0000] "GET / HTTP/1.1" 200 387 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
+
+
+// other commands
+
+$ docker-compose up -d
+
+$ docker-compose down
+
+
+
+
